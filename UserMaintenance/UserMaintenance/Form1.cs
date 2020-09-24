@@ -17,16 +17,15 @@ namespace UserMaintenance
         public Form1()
         {
             InitializeComponent();
-            labelLastName.Text = Resource.LastName;
-            labelFirstName.Text = Resource.FirstName;
+            labelLastName.Text = Resource.FullName;
             ButtonAdd.Text = Resource.Add;
             listUsers.DataSource = users;
             listUsers.ValueMember = "ID";
             listUsers.DisplayMember = "FullName";
             var u = new User()
             {
-                LastName=textBoxLastName.Text, 
-                FirstName=textboxFirstname.Text
+                Fullname=textBoxLastName.Text
+                
             };
             users.Add(u);
         }
