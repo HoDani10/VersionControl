@@ -20,7 +20,15 @@ namespace UserMaintenance
             labelLastName.Text = Resource.LastName;
             labelFirstName.Text = Resource.FirstName;
             ButtonAdd.Text = Resource.Add;
-            
+            listUsers.DataSource = users;
+            listUsers.ValueMember = "ID";
+            listUsers.DisplayMember = "FullName";
+            var u = new User()
+            {
+                LastName=textBoxLastName.Text, 
+                FirstName=textboxFirstname.Text
+            };
+            users.Add(u);
         }
     }
 }
