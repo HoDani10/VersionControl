@@ -35,6 +35,7 @@
             this.labelLastName = new System.Windows.Forms.Label();
             this.textBoxLastName = new System.Windows.Forms.TextBox();
             this.buttoniras = new System.Windows.Forms.Button();
+            this.buttonTorles = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listUsers
@@ -97,11 +98,22 @@
             this.buttoniras.UseVisualStyleBackColor = true;
             this.buttoniras.Click += new System.EventHandler(this.buttoniras_Click);
             // 
+            // buttonTorles
+            // 
+            this.buttonTorles.Location = new System.Drawing.Point(329, 339);
+            this.buttonTorles.Name = "buttonTorles";
+            this.buttonTorles.Size = new System.Drawing.Size(151, 32);
+            this.buttonTorles.TabIndex = 9;
+            this.buttonTorles.Text = "button1";
+            this.buttonTorles.UseVisualStyleBackColor = true;
+            this.buttonTorles.Click += new System.EventHandler(this.buttonTorles_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonTorles);
             this.Controls.Add(this.buttoniras);
             this.Controls.Add(this.textBoxLastName);
             this.Controls.Add(this.labelLastName);
@@ -110,7 +122,7 @@
             this.Controls.Add(this.textboxFirstname);
             this.Controls.Add(this.listUsers);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "b";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -125,6 +137,7 @@
         private System.Windows.Forms.Label labelLastName;
         private System.Windows.Forms.TextBox textBoxLastName;
         private System.Windows.Forms.Button buttoniras;
+        private System.Windows.Forms.Button buttonTorles;
     }
 }
 

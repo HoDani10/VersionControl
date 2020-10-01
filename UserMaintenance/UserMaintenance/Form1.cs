@@ -24,6 +24,7 @@ namespace UserMaintenance
             listUsers.ValueMember = "ID";
             listUsers.DisplayMember = "FullName";
             buttoniras.Text = Resource.ButtonNev;
+            buttonTorles.Text = Resource.buttonTorles;
             
         }
 
@@ -52,6 +53,11 @@ namespace UserMaintenance
 
             };
             users.Add(u);
+        }
+
+        private void buttonTorles_Click(object sender, EventArgs e)
+        {
+            listUsers.Items.RemoveAt(listUsers.SelectedIndex);
         }
     }
 }
