@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,5 +68,21 @@ namespace VaR_gyak5
 
         }
 
+        private void ment_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            if (ShowDialog() != DialogResult.OK) return;
+            {
+                StreamWriter sw = new StreamWriter(sfd.FileName);
+                foreach (var p in Portfolio)
+                {
+                    sw.Write(p.Index);
+                    sw.Write(",");
+                    sw.Write(p.Volume);
+                    sw.WriteLine();
+                }
+            }
+
+        }
     }
 }
