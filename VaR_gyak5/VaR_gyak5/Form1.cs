@@ -68,19 +68,23 @@ namespace VaR_gyak5
 
         }
 
-        private void ment_Click(object sender, EventArgs e)
+         void ment_Click(object sender, EventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
-            if (ShowDialog() != DialogResult.OK) return;
+            if (sfd.ShowDialog() != DialogResult.OK) return;
             {
-                StreamWriter sw = new StreamWriter(sfd.FileName);
+                StreamWriter sw = new StreamWriter(sfd.FileName, true, Encoding.UTF8);
+                sw.Write("Időszak ");
+                sw.Write("Nyereség");
+                sw.WriteLine();
                 foreach (var p in Portfolio)
                 {
                     sw.Write(p.Index);
-                    sw.Write(",");
+                    sw.Write("    ");
                     sw.Write(p.Volume);
                     sw.WriteLine();
                 }
+                sw.Close();
             }
 
         }
