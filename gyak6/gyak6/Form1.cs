@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,19 +18,35 @@ namespace gyak6
     public partial class Form1 : Form
     {
         BindingList<RateData> Rates = new BindingList<RateData>();
-
+        //BindingList<string> Currencies = new BindingList<string>();
         public Form1()
         {
             InitializeComponent();
             arfolyam();
             dataGridView1.DataSource = Rates;
+            //comboBox1.DataSource = Currencies;
+            //Valuta();
             RefreshData();
+            
             
             
 
 
  
         }
+
+       /*rivate void Valuta()
+        {
+            var mnbService = new MNBArfolyamServiceSoapClient();
+            var request = new GetCurrenciesRequestBody();
+            {
+                currencyNames = "EUR",
+                startDate = "2020-01-01",
+                endDate = "2020-06-30"
+            };
+
+
+        }*/
 
         private void RefreshData()
         {
