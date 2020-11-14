@@ -1,4 +1,5 @@
-﻿using System;
+﻿using gyak8.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace gyak8.Entities
 {
-    class BallFactory
+    public class BallFactory :IToyFactory
     {
-        public Ball CreateNew()
+        public Abstractions.Toy CreateNew()
         {
-            return new Ball();
+            return new Toy();
         }
     }
 }
