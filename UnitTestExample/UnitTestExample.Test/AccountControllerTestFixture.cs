@@ -1,6 +1,7 @@
 ﻿//using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using System;
+using System.Activities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,8 +31,13 @@ namespace UnitTestExample.Test
             Assert.AreEqual(expectedResult, actualResult);
         }
 
+        [
+        Test,
+        TestCase("irf@uni-corvinus.hu", "Abcd1234"),
+        TestCase("irf@uni-corvinus.hu", "Abcd1234567"),]
         public void TestRegisterHappyPath(string email, string password)
-        {   // Arrange
+        {   
+            // Arrange
             var accountController = new AccountController();
 
             // Act
@@ -42,6 +48,23 @@ namespace UnitTestExample.Test
             Assert.AreEqual(password, actualResult.Password);
             Assert.AreNotEqual(Guid.Empty, actualResult.ID);
          }
+        public void TestRegisterValidateExeption(string email, string password)
+        { 
+            // Arrange
+            var accountController = new AccountController();
+
+            // Act
+            try
+            {
+                var actualResult = accountController.Register(email, password);
+                Assert.Fail();
+            }
+            catch (Exception ex)
+            {
+                Assert.IsInstanceOf<ValidationException>(ex);
+            }
+
+        }
         /*
         [
             Test, 
