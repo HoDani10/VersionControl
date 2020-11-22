@@ -1,4 +1,5 @@
 ﻿//using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using NUnit.Framework;
 using System;
 using System.Activities;
@@ -7,7 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using UnitTestExample.Abstractions;
 using UnitTestExample.Controllers;
+using UnitTestExample.Entities;
 
 namespace UnitTestExample.Test
 {
@@ -33,12 +36,19 @@ namespace UnitTestExample.Test
 
         [
         Test,
-        TestCase("irf@uni-corvinus.hu", "Abcd1234"),
-        TestCase("irf@uni-corvinus.hu", "Abcd1234567"),]
+        TestCase("irf@uni-corvinus.hu", true),
+        TestCase("abcd1234", false)
+        ]
         public void TestRegisterHappyPath(string email, string password)
-        {   
+        {
             // Arrange
+            var accountServiceMock = new Mock<IAccountManager>(MockBehavior.Strict); 
+            accountServiceMock
+                .Setup(m => m.CreateAccount(It.IsAny<Account>()))
+                .Returns<Account>(a => a);
+
             var accountController = new AccountController();
+            accountController.AccountManager = accountServiceMock.Object;
 
             // Act
             var actualResult = accountController.Register(email, password);
@@ -47,11 +57,20 @@ namespace UnitTestExample.Test
             Assert.AreEqual(email, actualResult.Email);
             Assert.AreEqual(password, actualResult.Password);
             Assert.AreNotEqual(Guid.Empty, actualResult.ID);
-         }
+        }
+        [
+        Test,
+        TestCase("irf@uni-corvinus.hu", "Abcd1234")
+        ]
         public void TestRegisterValidateExeption(string email, string password)
-        { 
+        {
             // Arrange
+            var accountServiceMock = new Mock<IAccountManager>(MockBehavior.Strict);
+            accountServiceMock
+                .Setup(m => m.CreateAccount(It.IsAny<Account>()))
+                .Throws<ApplicationException>();
             var accountController = new AccountController();
+            accountController.AccountManager = accountServiceMock.Object;
 
             // Act
             try
@@ -90,5 +109,6 @@ namespace UnitTestExample.Test
             //r.IsMatch(password);
         }
         */
+    }
 }
 
