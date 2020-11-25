@@ -19,20 +19,28 @@ namespace gyak10
         int nbrOfSteps = 10;
         int nbrOfStepsIncrement = 10;
         int generation = 1;
+
+        Brain winnerBrain = null;
         public Form1()
         {
             InitializeComponent();
             //gc.AddPlayer();
             //gc.Start(true);
+            button1.Hide();
+            ga = gc.ActivateDisplay();
+            this.Controls.Add(ga);
+
             gc.GameOver += Gc_GameOver;
             for (int i = 0; i < populationSize; i++)
             {
                 gc.AddPlayer(nbrOfSteps);
             }
             gc.Start();
-            ga = gc.ActivateDisplay();
-            this.Controls.Add(ga);
             
+
+
+
+
 
         }
 
@@ -40,13 +48,23 @@ namespace gyak10
         {
             generation++;
             label1.Text = string.Format("{0}. generáció", generation);
-            gc.ResetCurrentLevel();
-
+            
             var playerList = from p in gc.GetCurrentPlayers()
                              orderby p.GetFitness() descending
                              select p;
             var topPerformers = playerList.Take(populationSize / 2).ToList();
+            
+            var winners = from p in topPerformers
+                          where p.IsWinner
+                          select p;
+            if (winners.Count() > 0)
+            {
+                winnerBrain = winners.FirstOrDefault().Brain.Clone();
+                gc.GameOver -= Gc_GameOver;
+                return;
+            }
 
+            gc.ResetCurrentLevel();
             foreach (var p in topPerformers)
             {
                 var b = p.Brain.Clone();
@@ -61,7 +79,20 @@ namespace gyak10
                     gc.AddPlayer(b.Mutate());
             }
             gc.Start();
+            button1.Show();
 
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+            gc.ResetCurrentLevel();
+            gc.AddPlayer(winnerBrain.Clone());
+            gc.AddPlayer();
+            ga.Focus();
+            gc.Start(true);
+            
         }
     }
 }
